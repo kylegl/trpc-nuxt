@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const client = useClient()
-
-const users = await client.query('getUsers')
+const { data: users } = await useAsyncQuery(['users.getUsers'])
 </script>
 
 <template>
