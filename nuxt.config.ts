@@ -6,10 +6,18 @@ export default defineNuxtConfig({
     '@unocss/nuxt',
     '@pinia/nuxt',
     '@nuxtjs/color-mode',
+    'trpc-nuxt',
   ],
   experimental: {
     reactivityTransform: true,
     viteNode: false,
+  },
+  trpc: {
+    baseURL: 'http://localhost:3000',
+    endpoint: '/trpc',
+  },
+  typescript: {
+    strict: true,
   },
   unocss: {
     preflight: true,

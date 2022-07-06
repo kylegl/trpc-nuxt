@@ -10,5 +10,6 @@
       </template>
     </Suspense>
     <InputEntry />
+    <TRPCtest />
   </div>
 </template>
