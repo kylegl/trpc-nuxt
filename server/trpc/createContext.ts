@@ -1,3 +1,5 @@
+import { prisma } from '../../utils/prisma'
+
 export function createContext({
   req,
   res,
@@ -5,7 +7,7 @@ export function createContext({
   req: Request
   res: Response
 }) {
-  return { req, res }
+  return { req, res, prisma }
 }
 
 export type Context = ReturnType<typeof createContext>
