@@ -1,6 +1,10 @@
 <script setup lang="ts">
+const client = useClient()
+
 let showLogin = $ref(false)
 const toggleLogin = () => showLogin = !showLogin
+
+const { data, error, isLoading } = await useAsyncQuery(['users.me'])
 </script>
 
 <template>
@@ -20,7 +24,7 @@ const toggleLogin = () => showLogin = !showLogin
       </Suspense>
       <InputEntry />
     </div>
-
+    {{ data }}
     <Login v-if="showLogin" />
   </div>
 </template>

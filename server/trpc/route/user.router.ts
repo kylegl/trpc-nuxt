@@ -80,10 +80,6 @@ export const userRouter = createRouter()
       return true
     },
   })
-  .query('getUsers', {
-    async resolve({ ctx, input }) {
-    },
-  })
   .query('verify-otp', {
     input: verifyOtpSchema,
     async resolve({ ctx, input }) {
@@ -119,5 +115,10 @@ export const userRouter = createRouter()
       return {
         redirect: token.redirect,
       }
+    },
+  })
+  .query('me', {
+    resolve({ ctx }) {
+      return ctx.user
     },
   })
