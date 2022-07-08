@@ -9,17 +9,27 @@ const hash = $computed(() => route?.hash.split('#token=')[1])
 watchEffect(() => {
   if (hash) {
     const res = verifyToken({ hash })
-    console.log('verify res', res)
     if (res) {
       setUser()
       router.push(res?.redirect?.includes('login') ? '/' : res?.redirect || '/')
     }
   }
 })
+
+definePageMeta({
+  layout: 'public',
+})
 </script>
 
 <template>
   <div>
-    {{ message }}
+    <template v-if="!hash">
+      <Login />
+    </template>
+    <template v-if="hash">
+      <div>
+        {{ message }}
+      </div>
+    </template>
   </div>
 </template>

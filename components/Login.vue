@@ -14,7 +14,7 @@ const handleSubmit = async () => {
 <template>
   <div
     absolute top-0 bottom-0 left-0 right-0
-    flex="~ col" items-center m-auto w-100 p4 gap4 rounded
+    flex="~ col" items-center m-auto w-100 h-100 p4 gap4 rounded
     bg-purple-8
   >
     <form flex="~ col" items-start gap3 w="1/2" @submit.prevent="handleSubmit">

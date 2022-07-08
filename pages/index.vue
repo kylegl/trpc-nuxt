@@ -1,8 +1,13 @@
 <script setup lang="ts">
 const { user, isLoggedIn } = useUserStore()
+const route = useRoute()
 
 let showLogin = $ref(false)
 const toggleLogin = () => showLogin = !showLogin
+
+definePageMeta({
+  layout: 'public',
+})
 </script>
 
 <template>
@@ -24,6 +29,10 @@ const toggleLogin = () => showLogin = !showLogin
     </div>
     {{ isLoggedIn }}
     {{ user }}
+    <div>
+      {{ route.path }}
+    </div>
+
     <Login v-if="showLogin" />
   </div>
 </template>

@@ -11,6 +11,10 @@ const handleSubmit = async () => {
   if (newUser)
     router.push('/login')
 }
+
+definePageMeta({
+  layout: 'public',
+})
 </script>
 
 <template>

@@ -1,9 +1,11 @@
 <template>
   <main class="py-20 px-10 text-center">
-    <slot />
+    <div min-h-7xl>
+      <slot/>
+    </div>
     <Footer />
     <div class="mt-5 mx-auto text-center opacity-25 text-sm">
-      [Home Layout]
+      [Public Layout]
     </div>
   </main>
 </template>
