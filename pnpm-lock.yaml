@@ -14,10 +14,11 @@ specifiers:
   cookie: ^0.5.0
   eslint: ^8.17.0
   jsonwebtoken: ^8.5.1
+  nodemailer: ^6.7.7
   nuxt: ^3.0.0-rc.4
   pinia: ^2.0.14
   superjson: ^1.9.1
-  trpc-nuxt: github:kylegl/trpc-nuxt-1
+  trpc-nuxt: ^0.2.2
   typescript: ^4.7.3
   zod: ^3.17.3
 
@@ -38,6 +39,7 @@ devDependencies:
   '@unocss/nuxt': 0.39.0
   '@vueuse/nuxt': 8.6.0
   eslint: 8.17.0
+  nodemailer: 6.7.7
   nuxt: 3.0.0-rc.4
   pinia: 2.0.14_typescript@4.7.3
   superjson: 1.9.1
@@ -1074,6 +1076,10 @@ packages:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: true
 
+  /@types/web-bluetooth/0.0.14:
+    resolution: {integrity: sha512-5d2RhCard1nQUC3aHcq/gHzWYO6K0WJmAbjO7mQJgCQKtZpgXxv1rOM6O/dBDhDYYVutk1sciOgNSe+5YyfM8A==}
+    dev: true
+
   /@typescript-eslint/eslint-plugin/5.28.0_7yumg2qjgbp7maccqlfhx2vudu:
     resolution: {integrity: sha512-DXVU6Cg29H2M6EybqSg2A+x8DgO9TCUBRp4QEXQHJceLS7ogVDP0g3Lkg/SZCqcvkAP/RruuQqK0gdlkgmhSUA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -1542,6 +1548,23 @@ packages:
       vue-demi: 0.13.1
     dev: true
 
+  /@vueuse/core/8.9.0:
+    resolution: {integrity: sha512-eKWehF6gsiLYxnYM/1xgDu16bKED7AWvkk56JIFNQes8OKgktr3Jc1wUy8UWIulrnwCXICUu9YUo+Wkq4r2JNw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@types/web-bluetooth': 0.0.14
+      '@vueuse/metadata': 8.9.0
+      '@vueuse/shared': 8.9.0
+      vue-demi: 0.13.1
+    dev: true
+
   /@vueuse/head/0.7.6_vue@3.2.37:
     resolution: {integrity: sha512-cOWqCkT3WiF5oEpw+VVEWUJd9RLD5rc7DmnFp3cePsejp+t7686uKD9Z9ZU7Twb7R/BI8iexKTmXo9D/F3v6UA==}
     peerDependencies:
@@ -1552,6 +1575,10 @@ packages:
 
   /@vueuse/metadata/8.6.0:
     resolution: {integrity: sha512-F+CKPvaExsm7QgRr8y+ZNJFwXasn89rs5wth/HeX9lJ1q8XEt+HJ16Q5Sxh4rfG5YSKXrStveVge8TKvPjMjFA==}
+    dev: true
+
+  /@vueuse/metadata/8.9.0:
+    resolution: {integrity: sha512-pjkIbQgJPRUrxK5/iXVKQFGC+OhJ+Vd6fhBsdwgj+NNJEHUotRliYymwdvhnEke/o+kkulT0xMvoK19nyPoiMw==}
     dev: true
 
   /@vueuse/nuxt/8.6.0:
@@ -1572,8 +1599,40 @@ packages:
       - webpack
     dev: true
 
+  /@vueuse/nuxt/8.9.0:
+    resolution: {integrity: sha512-IAgf/JmsWa41JdYDuw+mAZyl8Loopog3zVTmeCWFaeTMS/wgcdVlpThh9tHCEifSxA/Vuz2CKgqMMF/dEKvzWQ==}
+    dependencies:
+      '@nuxt/kit': 3.0.0-rc.4
+      '@vueuse/core': 8.9.0
+      '@vueuse/metadata': 8.9.0
+      local-pkg: 0.4.1
+      vue-demi: 0.13.1
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - esbuild
+      - rollup
+      - supports-color
+      - vite
+      - vue
+      - webpack
+    dev: true
+
   /@vueuse/shared/8.6.0:
     resolution: {integrity: sha512-Y/IVywZo7IfEoSSEtCYpkVEmPV7pU35mEIxV7PbD/D3ly18B3mEsBaPbtDkNM/QP3zAZ5mn4nEkOfddX4uwuIA==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      vue-demi: 0.13.1
+    dev: true
+
+  /@vueuse/shared/8.9.0:
+    resolution: {integrity: sha512-Pmu3Fopk/JJjN8b90uQuFrVCc/RPcSA/0zDFRTyn3YIhoB5ESna/1Sac5WZxK+n82g/ERXHHQTetGI9yxEdPfA==}
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -4726,6 +4785,11 @@ packages:
     resolution: {integrity: sha512-U9h1NLROZTq9uE1SNffn6WuPDg8icmi3ns4rEl/oTfIle4iLjTliCzgTsbaIFMq/Xn078/lfY/BL0GWZ+psK4Q==}
     dev: true
 
+  /nodemailer/6.7.7:
+    resolution: {integrity: sha512-pOLC/s+2I1EXuSqO5Wa34i3kXZG3gugDssH+ZNCevHad65tc8vQlCQpOLaUjopvkRQKm2Cki2aME7fEOPRy3bA==}
+    engines: {node: '>=6.0.0'}
+    dev: true
+
   /nopt/4.0.3:
     resolution: {integrity: sha512-CvaGwVMztSMJLOeXPrez7fyfObdZqNUK1cPAEzLHrTybIua9pMdmmPR5YwtfNftIOMv3DPUhFaxsZMNTQO20Kg==}
     hasBin: true
@@ -6380,11 +6444,11 @@ packages:
       '@nuxt/kit': 3.0.0-rc.4
       '@trpc/client': 9.25.3_@trpc+server@9.25.3
       '@trpc/server': 9.25.3
-      '@vueuse/core': 8.6.0
-      '@vueuse/nuxt': 8.6.0
+      '@vueuse/core': 8.9.0
+      '@vueuse/nuxt': 8.9.0
       dedent: 0.7.0
       defu: 6.0.0
-      h3: 0.7.9
+      h3: 0.7.10
       pathe: 0.3.0
       ufo: 0.8.4
     transitivePeerDependencies:
