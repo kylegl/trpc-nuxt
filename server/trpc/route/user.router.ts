@@ -5,7 +5,7 @@ import { createRouter } from '../createRouter'
 import { createUserSchema, requestOtpSchema, verifyOtpSchema } from '~~/schema/user.schema'
 import { sendLoginEmail } from '~~/utils/mailer'
 import { decode, encode } from '~~/utils/base64'
-import { baseUrl, endpoint } from '~~/server/constants'
+import { baseUrl } from '~~/server/constants'
 import { signJwt } from '~~/utils/jwt'
 
 export const userRouter = createRouter()

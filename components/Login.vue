@@ -1,17 +1,12 @@
 <script setup lang="ts">
-const client = useClient()
+const { loginUser } = useUserStore()
 const route = useRoute()
 const email = $ref('')
 
 let isSubmit = $ref(false)
 
-const login = async ({ email, redirect }: {
-  email: string
-  redirect: string
-}) => await client.mutation('users.request-otp', { email, redirect })
-
 const handleSubmit = async () => {
-  login({ email, redirect: route.path })
+  loginUser({ email, redirect: route.path })
   isSubmit = true
 }
 </script>

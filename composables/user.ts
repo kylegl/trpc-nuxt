@@ -1,34 +1,66 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
+import type { inferProcedureOutput } from '@trpc/server'
+import type { AppRouter } from '../server/trpc'
 
-export const useUserStore = defineStore('user', () => {
-  /**
-   * Current named of the user.
-   */
-  const savedName = ref('')
-  const previousNames = ref(new Set<string>())
+type TQuery = keyof AppRouter['_def']['queries']
 
-  const usedNames = computed(() => Array.from(previousNames.value))
-  const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
+type InferQueryOutput<TRouteKey extends TQuery> = inferProcedureOutput<
+  AppRouter['_def']['queries'][TRouteKey]
+>
 
-  /**
-   * Changes the current name of the user and saves the one that was used
-   * before.
-   *
-   * @param name - new name to set
-   */
-  function setNewName(name: string) {
-    if (savedName.value)
-      previousNames.value.add(savedName.value)
+export const useUserStore = defineStore('userStore', () => {
+  const client = useClient()
 
-    savedName.value = name
+  const storedUser = getStoredUser()
+
+  // current user
+  const user = useStorage<InferQueryOutput<'users.me'>>('user', storedUser)
+
+  // isLoggedIn
+  const isLoggedIn = computed(() => {
+    return !!user.value?.id
+  })
+
+  // login in user
+  async function loginUser({ email, redirect }: {
+    email: string
+    redirect: string
+  }) {
+    return await client.mutation('users.request-otp', { email, redirect })
   }
 
-  return {
-    setNewName,
-    otherNames,
-    savedName,
+  // verify user
+  async function verifyToken({ hash }: { hash: string }) {
+    const { data } = await useAsyncQuery(['users.verify-otp', { hash }])
+    return data
   }
+
+  // logout user
+
+  // register user
+  async function registerUser({ name, email }: { name: string; email: string }) {
+    const newUser = await client.mutation('users.register-user', { name, email })
+    return newUser
+  }
+
+  async function setUser() {
+    const { data } = await useAsyncQuery(['users.me'])
+
+    if (data.value)
+      setStoredUser(data.value)
+  }
+  return { user, loginUser, verifyToken, registerUser, setUser, isLoggedIn }
 })
 
 if (import.meta.hot)
   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
+
+export interface CtxUser {
+  id: string
+  email: string
+  name: string
+  iat: string
+  exp: number
+}
+

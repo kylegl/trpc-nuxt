@@ -1,17 +1,13 @@
 <script setup lang="ts">
-const client = useClient()
+const { registerUser } = useUserStore()
 const router = useRouter()
 
 const name = $ref('')
 const email = $ref('')
 
 const handleSubmit = async () => {
-  const newUser = await client.mutation('users.register-user', {
-    name,
-    email,
-  })
+  const newUser = await registerUser({ name, email })
 
-  console.log('newUser', newUser)
   if (newUser)
     router.push('/login')
 }

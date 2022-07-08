@@ -18,7 +18,7 @@ const getUserFromReq = (req: IncomingMessage) => {
 
   return null
 }
-interface CtxUser {
+export interface CtxUser {
   id: string
   email: string
   name: string

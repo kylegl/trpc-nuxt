@@ -1,19 +1,20 @@
 <script setup lang="ts">
+const { verifyToken, setUser } = useUserStore()
+
 const route = useRoute()
 const router = useRouter()
 const message = $ref('Checking your credentials...')
 const hash = $computed(() => route?.hash.split('#token=')[1])
 
-const verifyToken = async ({ hash }: { hash: string }) => {
-  const { data } = await useAsyncQuery(['users.verify-otp', { hash }])
-
-  console.log('data', data)
-  router.push(data?.redirect?.includes('login') ? '/' : data?.redirect || '/')
-}
-
 watchEffect(() => {
-  if (hash)
-    verifyToken({ hash })
+  if (hash) {
+    const res = verifyToken({ hash })
+    console.log('verify res', res)
+    if (res) {
+      setUser()
+      router.push(res?.redirect?.includes('login') ? '/' : res?.redirect || '/')
+    }
+  }
 })
 </script>
 

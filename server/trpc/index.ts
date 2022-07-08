@@ -6,4 +6,4 @@ export * from './createContext'
 export const router = createRouter()
   .merge('users.', userRouter)
 
-export type Router = typeof router
+export type AppRouter = typeof router
